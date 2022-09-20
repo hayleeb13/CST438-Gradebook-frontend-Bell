@@ -13,15 +13,15 @@ import {SERVER_URL} from '../constants.js'
 //
 
 class Assignment extends React.Component {
-    constructor(props) {
+      constructor(props) {
       super(props);
       this.state = {selected: 0, assignments: []};
     };
- 
-   componentDidMount() {
+
+  componentDidMount() {
     this.fetchAssignments();
   }
- 
+
   fetchAssignments = () => {
     console.log("Assignment.fetchAssignments");
     const token = Cookies.get('XSRF-TOKEN');
@@ -44,13 +44,13 @@ class Assignment extends React.Component {
     .catch(err => console.error(err)); 
   }
   
-   onRadioClick = (event) => {
+  onRadioClick = (event) => {
     console.log("Assignment.onRadioClick " + event.target.value);
     this.setState({selected: event.target.value});
   }
   
   render() {
-     const columns = [
+    const columns = [
       {
         field: 'assignmentName',
         headerName: 'Assignment',
@@ -82,6 +82,10 @@ class Assignment extends React.Component {
             <Button component={Link} to={{pathname:'/gradebook',   assignment: assignmentSelected }} 
                     variant="outlined" color="primary" disabled={this.state.assignments.length===0}  style={{margin: 10}}>
               Grade
+            </Button>
+            <Button component={Link} to={{pathname:'/addassignment'}} 
+                    variant="outlined" color="primary" style={{margin: 10}}>
+              Add Assignment
             </Button>
             <ToastContainer autoClose={1500} /> 
           </div>

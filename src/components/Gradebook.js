@@ -23,10 +23,10 @@ class Gradebook extends React.Component {
       this.state = {  grades :  [] };
     } 
     
-     componentDidMount() {
+    componentDidMount() {
       this.fetchGrades();
     }
- 
+
     fetchGrades = () => {
       console.log("Gradebook.fetchGrades");
       const token = Cookies.get('XSRF-TOKEN');
@@ -68,7 +68,7 @@ class Gradebook extends React.Component {
           {  
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json',
-                       'X-XSRF-TOKEN': token }, 
+                        'X-XSRF-TOKEN': token }, 
             body: JSON.stringify({assignmentId:this.props.location.assignment.assignmentId,  grades: this.state.grades})
           } )
       .then(res => {
@@ -89,22 +89,22 @@ class Gradebook extends React.Component {
           });
           console.error(err);
         });
-   };        
+  };        
     
     // when user has entered a new grade, update the state
     //  id    - index of row of grade change
     //  props - contains the new grade
     handleEditCellChange = ({ id, field, props }) => {
-       console.log("edit cell change id:"+id+" field:"+field+" value:"+props.value);
-       const newgrades = this.state.grades.map(r => {
-         if (r.id === id){
-           return {...r, [field]:props.value};
-         } else {
-           return {...r};
-         }
-       });
-       this.setState({grades: newgrades});
-     };
+      console.log("edit cell change id:"+id+" field:"+field+" value:"+props.value);
+      const newgrades = this.state.grades.map(r => {
+        if (r.id === id){
+          return {...r, [field]:props.value};
+        } else {
+          return {...r};
+        }
+      });
+      this.setState({grades: newgrades});
+    };
 
     handleCellEditCommit = (e) => {
       console.log("handleCellEditCommit "+JSON.stringify(e));
@@ -118,9 +118,9 @@ class Gradebook extends React.Component {
       });
       this.setState({grades: newgrades});
     };
- 
+
     render() {
-       const columns = [
+      const columns = [
         { field: 'name', headerName: 'Name', width: 250 },
         { field: 'email', headerName: 'Email', width: 250},
         { field: 'grade', headerName: 'Grade', width: 150 , editable:true}
@@ -132,8 +132,8 @@ class Gradebook extends React.Component {
             <div className="App">
               <Grid container>
                 <Grid item align="left">
-                   <h4>Assignment: {assignment.assignmentName}</h4>
-                   <h4>Course: {assignment.courseTitle}</h4>                   
+                  <h4>Assignment: {assignment.assignmentName}</h4>
+                  <h4>Course: {assignment.courseTitle}</h4>                   
                 </Grid>
               </Grid>
               <div style={{width:'100%'}}>
@@ -143,7 +143,7 @@ class Gradebook extends React.Component {
               <div style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={this.state.grades} columns={columns} onCellEditCommit={this.handleCellEditCommit}  />
                 <Button id="Submit" variant="outlined" color="primary" style={{margin: 10}} onClick={this.handleSubmit} >
-                   Submit
+                  Submit
                 </Button>
               </div>
               <ToastContainer autoClose={1500} />   
